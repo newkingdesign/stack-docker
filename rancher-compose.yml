@@ -1,0 +1,27 @@
+version: '2'
+services:
+  sftp56:
+    scale: 1
+    start_on_create: true
+  phpmyadmin:
+    scale: 1
+    start_on_create: true
+  pgadmin4:
+    scale: 1
+    start_on_create: true
+  postgres94:
+    scale: 1
+    start_on_create: true
+  php56apache:
+    scale: 1
+    start_on_create: true
+  mysql8:
+    scale: 1
+    start_on_create: true
+  php72apache:
+    scale: 1
+    start_on_create: true
+  sftp72:
+    scale: 1
+    start_on_create: true
+

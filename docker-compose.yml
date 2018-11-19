@@ -1,0 +1,99 @@
+version: '2'
+services:
+  sftp56:
+    image: atmoz/sftp
+    stdin_open: true
+    volumes:
+    - /stack-docker/php56apache/www:/home/sftp/upload
+    tty: true
+    ports:
+    - 8084:22/tcp
+    command:
+    - sftp:password:1001
+    labels:
+      io.rancher.container.pull_image: always
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    stdin_open: true
+    tty: true
+    links:
+    - mysql8:db
+    ports:
+    - 8086:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  pgadmin4:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: postgres@domain.com
+      PGADMIN_DEFAULT_PASSWORD: password
+    stdin_open: true
+    volumes:
+    - /stack-docker/pgadmin4/pgadmin:/var/lib/pgadmin
+    tty: true
+    ports:
+    - 8083:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  postgres94:
+    image: postgres:9.4
+    environment:
+      POSTGRES_PASSWORD: password
+    stdin_open: true
+    volumes:
+    - /stack-docker/postgres94/data:/var/lib/postgresql/data
+    tty: true
+    ports:
+    - 5432:5432/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  php56apache:
+    image: newkingdesign/php56apache:1.0
+    stdin_open: true
+    volumes:
+    - /stack-docker/php56apache/www:/var/www/html
+    - /stack-docker/php56apache/apache:/etc/apache2
+    - /stack-docker/php56apache/php:/usr/local/etc/php
+    tty: true
+    ports:
+    - 8081:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  mysql8:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    stdin_open: true
+    volumes:
+    - /stack-docker/mysql8/mysql:/var/lib/mysql
+    - /stack-docker/mysql8/conf.d:/etc/mysql/conf.d
+    tty: true
+    ports:
+    - 3306:3306/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  php72apache:
+    image: newkingdesign/php72apache:1.0
+    stdin_open: true
+    volumes:
+    - /stack-docker/php72apache/www:/var/www/html
+    - /stack-docker/php72apache/apache:/etc/apache2
+    - /stack-docker/php72apache/php:/usr/local/etc/php
+    tty: true
+    ports:
+    - 8082:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  sftp72:
+    image: atmoz/sftp
+    stdin_open: true
+    volumes:
+    - /stack-docker/php72apache/www:/home/sftp/upload
+    tty: true
+    ports:
+    - 8085:22/tcp
+    command:
+    - sftp:password:1001
+    labels:
+      io.rancher.container.pull_image: always
+
